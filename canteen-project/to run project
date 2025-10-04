@@ -1,0 +1,7 @@
+1.cmd run 'cd canteen-project'
+2.step the sytemenv - run this cmd 'python -m venv venv' 
+note: use python 3.10 or below version 
+4.run the cmd '.\venv\Scripts\activate'
+5 run app.py cmd - "python app.py"
+copy : http: ...... and past in web browser see the interface
+
