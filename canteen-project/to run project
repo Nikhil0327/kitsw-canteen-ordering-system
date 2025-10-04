@@ -5,3 +5,39 @@ note: use python 3.10 or below version
 5 run app.py cmd - "python app.py"
 copy : http: ...... and past in web browser see the interface
 
+if you want delete the  all registration : 
+  1. go main folder search for canteen.db file and delete it 
+
+note : there is two types logins 
+   1.user login : user should register and login
+   2. admin login : username: canteen_admin
+                    password: admin123
+                    (if you want change username and pass avilable in code'app.py' you can)
+
+
+✅ Features include:
+👤 User side
+
+User can register / login.
+
+User can view menu items (like in Swiggy/Zomato style).
+
+User can add food to cart and place an order.
+
+User can set preferred eating time (with AM/PM selector).
+
+User can see their order status / progress (updated by owner).
+
+👑 Owner (Admin) side
+
+Owner (default: canteen_admin / admin123) can:
+
+Login to Owner Dashboard.
+
+View all menu items.
+
+Add / Edit / Delete menu items.
+
+View all orders sorted by user’s chosen eating time.
+
+Update order progress (e.g. “Preparing”, “Ready”, “Delivered”).
