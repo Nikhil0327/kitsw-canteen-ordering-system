@@ -1,0 +1,145 @@
+/* ----------- Global Styles ----------- */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #fafafa;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: #ff4500;
+  transition: 0.3s;
+}
+a:hover {
+  color: #e63900;
+}
+
+/* ----------- Navbar ----------- */
+.navbar {
+  background: #fff;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.navbar h1 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ff4500;
+}
+.navbar a {
+  margin-left: 20px;
+  font-weight: 500;
+}
+
+/* ----------- Container ----------- */
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* ----------- Buttons ----------- */
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+}
+.btn-primary {
+  background: #ff4500;
+  color: #fff;
+}
+.btn-primary:hover {
+  background: #e63900;
+}
+.btn-secondary {
+  background: #eee;
+  color: #333;
+}
+.btn-secondary:hover {
+  background: #ddd;
+}
+
+/* ----------- Forms ----------- */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+input, select {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+}
+input:focus, select:focus {
+  border-color: #ff4500;
+  outline: none;
+}
+
+/* ----------- Cards ----------- */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+}
+.card h3 {
+  margin: 0;
+  color: #333;
+}
+.card p {
+  margin: 8px 0;
+  color: #666;
+}
+.price {
+  font-weight: bold;
+  color: #ff4500;
+  font-size: 18px;
+}
+
+/* ----------- Tables ----------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+table th, table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+table th {
+  background: #f9f9f9;
+  color: #555;
+}
+
+/* ----------- Auth Pages ----------- */
+.auth-container {
+  max-width: 400px;
+  margin: 5rem auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.auth-container h2 {
+  margin-bottom: 1.5rem;
+  color: #ff4500;
+}
