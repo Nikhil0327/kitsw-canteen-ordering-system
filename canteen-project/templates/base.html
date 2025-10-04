@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Canteen System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+  <nav class="navbar">
+    <h1>🍽 Campus Canteen</h1>
+    <div>
+      {% if session.get('role') == 'admin' %}
+        <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('admin_menu') }}">Manage Menu</a>
+        <a href="{{ url_for('admin_orders') }}">Orders</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+      {% elif session.get('role') == 'user' %}
+        <a href="{{ url_for('student_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('menu') }}">Menu</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('register') }}">Register</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div style="margin-bottom:15px;">
+          {% for category, msg in messages %}
+            <div class="card" style="padding:10px; background: {% if category=='danger' %}#ffe6e6{% elif category=='success' %}#e9ffe9{% else %}#f9f9f9{% endif %};">
+              {{ msg }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
