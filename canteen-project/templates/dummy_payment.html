@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Dummy Payment</h2>
+<div class="card">
+  <p>Total: ₹{{ "%.2f"|format(total) }}</p>
+  {% if pickup_time %}
+    <p>Pickup Time: <strong>{{ pickup_time }}</strong></p>
+  {% endif %}
+  <p>UPI ID: <strong>{{ upi_id }}</strong></p>
+
+  <div style="margin:12px 0; padding:10px; border:1px dashed #ddd; text-align:center;">
+    <p style="font-weight:700">QR CODE (mock)</p>
+    <p style="font-size:12px;color:#666;">{{ upi_qr }}</p>
+  </div>
+
+  <p>You can simulate UPI/QR payment by clicking the button below.</p>
+
+  <form method="POST">
+    <button class="btn btn-primary" type="submit">Simulate Payment (Complete)</button>
+    <a class="btn btn-secondary" href="{{ url_for('checkout') }}">Cancel</a>
+  </form>
+</div>
+{% endblock %}
