@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Order Confirmation</h2>
+<div class="card">
+  <h3>Order #{{ order.id }} — Token: <strong>{{ order.token }}</strong></h3>
+  <p><strong>Name:</strong> {{ order.username }}</p>
+  <p><strong>Payment:</strong> {{ order.payment_method }} ({{ order.payment_status }})</p>
+  <p><strong>Status:</strong> {{ order.status }}</p>
+  {% if order.pickup_time %}
+    <p><strong>Pickup Time:</strong> {{ order.pickup_time }}</p>
+  {% endif %}
+  <h4>Items</h4>
+  <ul>
+    {% for it in items %}
+      <li>{{ it.qty }} × {{ it.name }} — ₹{{ "%.2f"|format(it.price) }}</li>
+    {% endfor %}
+  </ul>
+  <p><strong>Total:</strong> ₹{{ "%.2f"|format(order.total_price) }}</strong></p>
+</div>
+<div style="margin-top:12px;">
+  <a class="btn btn-primary" href="{{ url_for('menu') }}">Order More</a>
+  <a class="btn btn-secondary" href="{{ url_for('user_orders_page') }}">My Orders</a>
+</div>
+{% endblock %}
