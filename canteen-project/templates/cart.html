@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Your Cart</h2>
+{% if items %}
+  <table>
+    <thead><tr><th>Item</th><th>Qty</th><th>Price</th><th>Subtotal</th><th></th></tr></thead>
+    <tbody>
+      {% for it in items %}
+        <tr>
+          <td>{{ it.name }}</td>
+          <td>{{ it.qty }}</td>
+          <td>₹{{ "%.2f"|format(it.price) }}</td>
+          <td>₹{{ "%.2f"|format(it.subtotal) }}</td>
+          <td><a class="btn btn-secondary" href="{{ url_for('cart_remove', item_id=it.id) }}">Remove</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <h3>Total: ₹{{ "%.2f"|format(total) }}</h3>
+  <a class="btn btn-primary" href="{{ url_for('checkout') }}">Proceed to Checkout</a>
+{% else %}
+  <div class="card">Your cart is empty. <a href="{{ url_for('menu') }}">Browse menu</a></div>
+{% endif %}
+{% endblock %}
