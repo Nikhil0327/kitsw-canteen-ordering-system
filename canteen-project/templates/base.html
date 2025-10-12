@@ -1,23 +1,24 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Canteen System</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>Campus Canteen</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <nav class="navbar">
     <h1>🍽 Campus Canteen</h1>
     <div>
-      {% if session.get('role') == 'admin' %}
-        <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
-        <a href="{{ url_for('admin_menu') }}">Manage Menu</a>
-        <a href="{{ url_for('admin_orders') }}">Orders</a>
+      {% if session.get('role') == 'owner' %}
+        <a href="{{ url_for('owner_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('owner_menu') }}">Manage Menu</a>
+        <a href="{{ url_for('owner_orders') }}">Orders</a>
         <a href="{{ url_for('logout') }}">Logout</a>
-      {% elif session.get('role') == 'user' %}
-        <a href="{{ url_for('student_dashboard') }}">Dashboard</a>
+      {% elif session.get('username') %}
         <a href="{{ url_for('menu') }}">Menu</a>
+        <a href="{{ url_for('cart_view') }}">Cart</a>
+        <a href="{{ url_for('user_orders_page') }}">My Orders</a>
         <a href="{{ url_for('logout') }}">Logout</a>
       {% else %}
         <a href="{{ url_for('login') }}">Login</a>
@@ -29,8 +30,8 @@
   <main class="container">
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
-        <div style="margin-bottom:15px;">
-          {% for category, msg in messages %}
+        <div style="margin-bottom:12px;">
+          {% for category,msg in messages %}
             <div class="card" style="padding:10px; background: {% if category=='danger' %}#ffe6e6{% elif category=='success' %}#e9ffe9{% else %}#f9f9f9{% endif %};">
               {{ msg }}
             </div>
@@ -38,7 +39,6 @@
         </div>
       {% endif %}
     {% endwith %}
-
     {% block content %}{% endblock %}
   </main>
 </body>
