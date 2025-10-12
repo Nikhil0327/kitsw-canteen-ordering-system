@@ -478,6 +478,13 @@ def owner_orders():
     parsed_sorted = sorted(parsed, key=sort_key)
     return render_template("owner_orders.html", orders=parsed_sorted, status_filter=status_filter)
 
-# ---------------- Run ----------------
+import os
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Get port from Render or default to 5000 locally
+    port = int(os.environ.get("PORT", 5000))
+    
+    # Run Flask app accessible externally
+    app.run(host="0.0.0.0", port=port)
+
+
