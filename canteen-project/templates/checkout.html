@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Checkout</h2>
+<div class="card">
+  <h3>Order Summary</h3>
+  {% for it in items %}
+    <p>{{ it.qty }} × {{ it.name }} — ₹{{ "%.2f"|format(it.price) }}</p>
+  {% endfor %}
+  <hr>
+  <p><strong>Total: ₹{{ "%.2f"|format(total) }}</strong></p>
+
+  <form method="POST">
+    <label>Preferred pickup time</label>
+    <!-- Using <input type="time"> gives 24-hour value but we will convert using AM/PM selection as user wanted -->
+    <input type="time" name="order_time" required>
+    <select name="order_ampm" required>
+      <option value="AM">AM</option>
+      <option value="PM">PM</option>
+    </select>
+
+    <label style="margin-top:8px;">Payment method</label>
+    <select name="payment_method">
+      <option value="Cash">Cash on Pickup</option>
+      <option value="Online">Pay Online (UPI/QR)</option>
+    </select>
+
+    <button class="btn btn-primary" type="submit" style="margin-top:12px;">Place Order / Continue</button>
+  </form>
+</div>
+{% endblock %}
