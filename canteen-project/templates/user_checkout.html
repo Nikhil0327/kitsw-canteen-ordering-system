@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Checkout</h2>
+<div class="card">
+  <h3>Order Summary</h3>
+  {% for it in items %}
+    <p>{{ it.qty }} × {{ it.name }} — ₹{{ "%.2f"|format(it.price) }}</p>
+  {% endfor %}
+  <hr>
+  <p><strong>Total: ₹{{ "%.2f"|format(total) }}</strong></p>
+
+  <form method="POST" onsubmit="return validateTime()">
+    <label>Pickup Time (12-hour format)</label>
+    <input type="text" id="pickup_time" name="pickup_time" placeholder="e.g., 02:30 PM" required>
+    <small style="color:#555;">Use format: hh:mm AM or PM</small>
+
+    <label>Payment method</label>
+    <select name="payment_method">
+      <option value="Cash">Cash on Pickup</option>
+      <option value="Online">Pay Online (UPI/QR)</option>
+    </select>
+
+    <button class="btn btn-primary" type="submit">Continue</button>
+  </form>
+
+  <script>
+    function validateTime() {
+      const timeInput = document.getElementById('pickup_time').value.trim();
+      const regex = /^(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i;
+      if (!regex.test(timeInput)) {
+        alert("Please enter a valid pickup time (e.g., 09:15 AM or 03:45 PM)");
+        return false;
+      }
+      return true;
+    }
+  </script>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>My Orders</h2>
+
+{% if orders %}
+  {% for o in orders %}
+  <div class="card">
+    <h3>Order #{{ o.id }} — Token: <strong>{{ o.token }}</strong></h3>
+    <p><strong>Status:</strong> {{ o.status }}</p>
+    <p><strong>Payment:</strong> {{ o.payment_method }} ({{ o.payment_status }})</p>
+    <p><strong>Placed:</strong> {{ o.created_at }}</p>
+    {% if o.pickup_time %}
+      <p><strong>Preferred Pickup:</strong> {{ o.pickup_time }}</p>
+    {% endif %}
+    <p>Items:</p>
+    <ul>
+      {% for it in o.items_list %}
+        <li>{{ it.qty }} × {{ it.name }} — ₹{{ "%.2f"|format(it.price) }}</li>
+      {% endfor %}
+    </ul>
+
+    {% if o.status == "Ready" %}
+      <form method="POST" action="{{ url_for('user_mark_received', order_id=o.id) }}">
+        <button class="btn btn-primary" type="submit">Mark Received</button>
+      </form>
+    {% endif %}
+  </div>
+  {% endfor %}
+{% else %}
+  <p>No orders yet.</p>
+{% endif %}
+{% endblock %}
