@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Owner Dashboard</h2>
+<p>Total orders: <strong>{{ total }}</strong></p>
+<div style="display:flex; gap:12px; margin-top:12px; flex-wrap:wrap;">
+  <div class="card"><h3>Pending</h3><p>{{ counts['Pending'] }}</p><a class="btn btn-secondary" href="{{ url_for('owner_orders', status='Pending') }}">View</a></div>
+  <div class="card"><h3>Preparing</h3><p>{{ counts['Preparing'] }}</p><a class="btn btn-secondary" href="{{ url_for('owner_orders', status='Preparing') }}">View</a></div>
+  <div class="card"><h3>Ready</h3><p>{{ counts['Ready'] }}</p><a class="btn btn-secondary" href="{{ url_for('owner_orders', status='Ready') }}">View</a></div>
+  <div class="card"><h3>Completed</h3><p>{{ counts['Completed'] }}</p><a class="btn btn-secondary" href="{{ url_for('owner_orders', status='Completed') }}">View</a></div>
+  <div class="card"><h3>Received</h3><p>—</p><a class="btn btn-secondary" href="{{ url_for('owner_orders', status='Received') }}">View</a></div>
+</div>
+<div style="margin-top:16px;">
+  <a class="btn btn-primary" href="{{ url_for('owner_menu') }}">Manage Menu</a>
+  <a class="btn btn-secondary" href="{{ url_for('owner_orders') }}">All Orders</a>
+</div>
+{% endblock %}
