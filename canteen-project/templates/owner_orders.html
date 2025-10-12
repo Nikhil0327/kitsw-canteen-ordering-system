@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Orders {% if status_filter %} — {{ status_filter }} {% endif %}</h2>
+
+<form method="GET" style="margin-bottom:12px;">
+  <label>Filter by status:</label>
+  <select name="status" onchange="this.form.submit()">
+    <option value="">-- All --</option>
+    <option value="Pending" {% if request.args.get('status')=='Pending' %}selected{% endif %}>Pending</option>
+    <option value="Preparing" {% if request.args.get('status')=='Preparing' %}selected{% endif %}>Preparing</option>
+    <option value="Ready" {% if request.args.get('status')=='Ready' %}selected{% endif %}>Ready</option>
+    <option value="Completed" {% if request.args.get('status')=='Completed' %}selected{% endif %}>Completed</option>
+    <option value="Received" {% if request.args.get('status')=='Received' %}selected{% endif %}>Received</option>
+  </select>
+</form>
+
+{% for o in orders %}
+  <div class="card">
+    <h3>Order #{{ o.id }} — Token: <strong>{{ o.token }}</strong></h3>
+    <p>User: {{ o.username }}</p>
+    <p>Payment: {{ o.payment_method }} ({{ o.payment_status }})</p>
+    <p>Status: {{ o.status }}</p>
+    <p>Placed: {{ o.created_at }}</p>
+    {% if o.pickup_time %}
+      <p><strong>Pickup:</strong> {{ o.pickup_time }}</p>
+    {% endif %}
+    <p>Items:</p>
+    <ul>
+      {% for it in o.items_list %}
+        <li>{{ it.qty }} × {{ it.name }} — ₹{{ "%.2f"|format(it.price) }}</li>
+      {% endfor %}
+    </ul>
+
+    <form method="POST" style="display:inline-block;">
+      <input type="hidden" name="order_id" value="{{ o.id }}">
+      <input type="hidden" name="action" value="update">
+      <select name="status">
+        <option {% if o.status=='Pending' %}selected{% endif %}>Pending</option>
+        <option {% if o.status=='Preparing' %}selected{% endif %}>Preparing</option>
+        <option {% if o.status=='Ready' %}selected{% endif %}>Ready</option>
+        <option {% if o.status=='Completed' %}selected{% endif %}>Completed</option>
+      </select>
+      <button class="btn btn-primary" type="submit">Update</button>
+    </form>
+
+    <form method="POST" style="display:inline-block; margin-left:8px;">
+      <input type="hidden" name="order_id" value="{{ o.id }}">
+      <input type="hidden" name="action" value="received">
+      <button class="btn btn-secondary" type="submit" onclick="return confirm('Mark this order as Received (delete)?')">Mark Received</button>
+    </form>
+
+    <form method="POST" style="display:inline-block; margin-left:8px;">
+      <input type="hidden" name="order_id" value="{{ o.id }}">
+      <input type="hidden" name="action" value="delete">
+      <button class="btn btn-secondary" type="submit" onclick="return confirm('Delete this order?')">Delete</button>
+    </form>
+  </div>
+{% else %}
+  <p>No orders found.</p>
+{% endfor %}
+
+<script>
+  // Poll every 5s to refresh owner orders (if owner is viewing)
+  setInterval(() => {
+    if (window.location.pathname.includes('/owner/orders')) {
+      window.location = window.location.href;
+    }
+  }, 5000);
+</script>
+{% endblock %}
