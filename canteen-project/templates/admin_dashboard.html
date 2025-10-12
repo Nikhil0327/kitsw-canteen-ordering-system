@@ -1,9 +1,0 @@
-{% extends "base.html" %}
-{% block content %}
-<h2>Owner Dashboard</h2>
-<p>Welcome, {{ session['username'] }} — manage menu and orders.</p>
-<div style="margin:20px 0">
-  <a class="btn btn-primary" href="{{ url_for('admin_menu') }}">Manage Menu</a>
-  <a class="btn btn-secondary" href="{{ url_for('admin_orders') }}">View Orders</a>
-</div>
-{% endblock %}
