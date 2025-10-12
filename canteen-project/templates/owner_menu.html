@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Manage Menu</h2>
+<form method="POST" style="max-width:700px;margin-bottom:20px;">
+  <input type="text" name="name" placeholder="Item name" required>
+  <input type="number" step="0.01" name="price" placeholder="Price" required>
+  <input type="text" name="category" placeholder="Category (optional)">
+  <button class="btn btn-primary" type="submit">Add Item</button>
+</form>
+
+<div class="menu-grid">
+  {% for item in items %}
+  <div class="card">
+    <h3>{{ item.name }}</h3>
+    <p class="price">₹{{ "%.2f"|format(item.price) }}</p>
+    <p>Category: {{ item.category or 'General' }}</p>
+    <p>Status: {% if item.available %}<span style="color:green">Available</span>{% else %}<span style="color:red">Out</span>{% endif %}</p>
+    <a class="btn btn-secondary" href="{{ url_for('owner_toggle', item_id=item.id) }}">Toggle Availability</a>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
